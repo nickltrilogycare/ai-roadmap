@@ -505,6 +505,39 @@ select:focus,.search-input:focus{border-color:var(--primary);box-shadow:0 0 0 3p
 </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="authGate" style="position:fixed;inset:0;z-index:9999;background:#1E3A5F;display:flex;align-items:center;justify-content:center;font-family:'Inter',system-ui,sans-serif;">
+  <div style="background:#fff;border-radius:16px;padding:48px 40px;max-width:400px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+    <div style="width:56px;height:56px;background:#EFF6FF;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;">&#128274;</div>
+    <h2 style="font-size:22px;font-weight:700;color:#1E3A5F;margin-bottom:6px;">AI Roadmap</h2>
+    <p style="font-size:13px;color:#64748B;margin-bottom:24px;">Enter the access code to continue</p>
+    <input id="authPwd" type="password" placeholder="Access code" autocomplete="off"
+      style="width:100%;padding:12px 16px;border:2px solid #E2E8F0;border-radius:10px;font-size:15px;font-family:inherit;outline:none;transition:.2s ease;text-align:center;letter-spacing:2px;"
+      onfocus="this.style.borderColor='#2563EB'" onblur="this.style.borderColor='#E2E8F0'"
+      onkeydown="if(event.key==='Enter')checkAuth()">
+    <div id="authErr" style="color:#EF4444;font-size:12px;margin-top:8px;min-height:18px;"></div>
+    <button onclick="checkAuth()" style="width:100%;margin-top:12px;padding:12px;background:#2563EB;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s ease;">Unlock</button>
+    <p style="font-size:10.5px;color:#94A3B8;margin-top:16px;">Trilogy Care — Internal Use Only</p>
+  </div>
+</div>
+<script>
+function checkAuth(){
+  const pwd=document.getElementById('authPwd').value.trim();
+  if(pwd==='AISTRAT101'){
+    document.getElementById('authGate').style.display='none';
+    sessionStorage.setItem('ai-roadmap-auth','1');
+  } else {
+    document.getElementById('authErr').textContent='Incorrect code. Try again.';
+    document.getElementById('authPwd').value='';
+    document.getElementById('authPwd').focus();
+  }
+}
+if(sessionStorage.getItem('ai-roadmap-auth')==='1'){
+  document.getElementById('authGate').style.display='none';
+}
+</script>
+
 <!-- SIDEBAR -->
 <aside class="sidebar" id="SB">
   <div class="sb-head">
